@@ -5,28 +5,20 @@ import io
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def home():
     return render_template('index.html')
 
-@app.route('/generate', methods=['POST'])
-def generate():
+@app.route('/generar', methods=['POST'])
+def generar():
+    data = request.form.get('data')
     tipo = request.form.get('tipo')
-    contenido = request.form.get('contenido')
-    color = request.form.get('color', '#000000')
+    color = request.form.get('color')
     
-    # Lógica según tipo
-    if tipo == 'wifi':
-        ssid = request.form.get('ssid')
-        password = request.form.get('password')
-        qr = segno.make_wifi(ssid=ssid, password=password, security='WPA')
-    else:
-        qr = segno.make(contenido, error='h')
-
+    qr = segno.make(data, error='h')
     img_buf = io.BytesIO()
     qr.save(img_buf, kind='png', scale=10, dark=color)
     img_buf.seek(0)
-    
     return send_file(img_buf, mimetype='image/png')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run()
