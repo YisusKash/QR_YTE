@@ -1,5 +1,4 @@
 # Instalación necesaria:
-pip install streamlit segno pillow
 import streamlit as st
 import segno
 import io
