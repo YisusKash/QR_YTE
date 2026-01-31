@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     # Esta ruta busca el archivo index.html dentro de la carpeta /templates
-    return render_template('index.html')
+    return render_template('Index.html')
 
 @app.route('/generar', methods=['POST'])
 def generar():
